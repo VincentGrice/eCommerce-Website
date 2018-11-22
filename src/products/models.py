@@ -41,9 +41,9 @@ class Product(models.Model):
 	price       = models.DecimalField(decimal_places=2, max_digits=20, default=39.99)
 	image       = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
 	image2       = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
-	image3       = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
-	image4       = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
-	image5       = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+	# image3       = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+	# image4       = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+	# image5       = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
 
 	objects = ProductManager()
 	#Python version 3
