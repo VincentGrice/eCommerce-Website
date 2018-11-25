@@ -43,7 +43,7 @@ class ProductListView(ListView):
 		request =self.request
 		return Product.objects.all()
 
-# function based view
+# function based view to render products to html
 def product_list_view(request):
 	queryset = Product.objects.all()
 	context  = {
