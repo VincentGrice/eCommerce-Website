@@ -46,31 +46,7 @@
 
   </head>
   <body>
-    <div style="text-align: center;">
-      <h1>{{ title }}</h1>
-    </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <img src="{% static 'img/Experiences_beach.jpg' %}" class="img-fluid" style="width: 400px; height: 400px; object-fit: cover;">
-          <p>{{ content }}</p>
-        </div>
-      </div>
-      {% if request.user.is_authenticated %}
-      <div class="row">
-        <div class="col">
-          <h1>Premium</h1>
-          {{ premium_content }}
-        </div>
-      </div>
-      {% endif %}
-    </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   
+ 
   </body>
 </html>
