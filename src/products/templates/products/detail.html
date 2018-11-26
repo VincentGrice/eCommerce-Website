@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-{{ object.title}} </br>
-{{ object.description}} </br>
+<div class="container">
+	<div class="row">
+		<div class="col">
+<h1 class="text-center">{{ object.title}}</h1> </br>
+{{ object.timestamp|timesince }}
+{{ object.description|linebreaks }} </br>
 {{ object.price}} </br>
 
 	{% if object.image %}
@@ -12,5 +15,7 @@
 
 <img src="{{ object.image_two.url }}" style="width: 300px; height: 300px; object-fit: cover;" class="img-fluid">
 	{% endif %}
-
+		</div>
+	</div>
+</div>
 {% endblock %}
