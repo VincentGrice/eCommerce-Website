@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import os
 import random
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import pre_save, post_save
 from django.urls import reverse
 
@@ -34,7 +35,14 @@ class ProductQuerySet(models.query.QuerySet):
 	def featured(self):
 		return self.filter(featured=True, active=True)
 
-# Extending model objects with product manager
+	def search(self, query):
+		lookups = (Q(title__icontains=query) |
+			 	  Q(description__icontains=query) |
+			 	  Q(price__icontains=query))
+		
+		return self.filter(lookups).distinct()
+
+# Extending model objects with product manager with models.Manager
 class ProductManager(models.Manager):
 
 	def get_queryset(self):
@@ -51,6 +59,11 @@ class ProductManager(models.Manager):
 		if qs.count() == 1:
 			return qs.first()
 		return None
+
+	def search(self, query):
+		
+		return self.get_queryset().active().search(query)
+
 		
 
 #Attributes of products
