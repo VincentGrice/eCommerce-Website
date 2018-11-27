@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
+
 	<div class="row">
 	{% for obj in object_list %}
 		<div class="col">
 		{{ forloop.counter }}
+		<!-- includes the card component from snippets/card -->
 		{% include 'products/snippets/card.html' with instance=obj %}
+		
 		{% if forloop.counter|divisibleby:3 %}
 		</div></div><div class="row"><div class="col-12"><hr></div>
 		{% else %}
@@ -15,5 +17,5 @@
 
 	{% endfor %}
 </div>
-</div>
+
 {% endblock %}
