@@ -35,11 +35,16 @@ class ProductQuerySet(models.query.QuerySet):
 	def featured(self):
 		return self.filter(featured=True, active=True)
 
+		# returning products in the search area
 	def search(self, query):
 		lookups = (Q(title__icontains=query) |
 			 	  Q(description__icontains=query) |
-			 	  Q(price__icontains=query))
+			 	  Q(price__icontains=query) |
+			 	  Q(tag__title__icontains=query)
+
+			 	  ) 
 		
+		# distinct() stops redundancy of products
 		return self.filter(lookups).distinct()
 
 # Extending model objects with product manager with models.Manager
