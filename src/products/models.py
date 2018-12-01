@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.db.models.signals import pre_save, post_save
 from django.urls import reverse
 
-from utils import unique_slug_generator
+from ecommerce.utils import unique_slug_generator
 
 # Create your models here.
 # Get the filename of uploaded picture
@@ -99,6 +99,10 @@ class Product(models.Model):
 	#Python version 2	
 	# def __unicode__(self):
 	# 	return self.title 
+	@property
+	def name(self):
+		return self.title
+	
 
 # generate unique slug for products with signal
 def product_pre_save_receiver(sender, instance, *args, **kwargs):

@@ -8,30 +8,33 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th>#</th>
+      <th>Product Name</th>
+      <th>Product Price</th>
     </tr>
   </thead>
   <tbody>
+  	{% for product in cart.products.all %}
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td><a href='{{ product.get_absolute_url }}'>{{ product.title }} </a>
+
+      	{% include 'products/snippets/update-cart.html' with product=product cart=cart in_cart=True %}
+      </td>
+      <td>${{ product.price }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td colspan="2"></td>
+      <td><b>Subtotal: </b>${{ cart.subtotal }}</td>
     </tr>
     <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
+      <td colspan="2"></td>
+      <td><b>Total: </b>${{ cart.total }}</td>
     </tr>
     <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
+      <td colspan="2"></td>
+      <td><a class="btn btn-lg btn-success" href='{% url "cart:checkout" %}'>Checkout</a></td>
     </tr>
   </tbody>
 </table>
