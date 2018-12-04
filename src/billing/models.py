@@ -17,11 +17,11 @@ class BillingProfile(models.Model):
  	def __str__(self):
  		return self.email 
 
-def billing_profile_created_receiver(sender, instance, created, *args, **kwargs):
-	if created:
-		print("Actual API request Send to stripe/braintree")
-		instance.customer_id = newID
-		instance.save()
+# def billing_profile_created_receiver(sender, instance, created, *args, **kwargs):
+# 	if created:
+# 		print("Actual API request Send to stripe/braintree")
+# 		instance.customer_id = newID
+# 		instance.save()
 
 def user_created_receiver(sender, instance, created, *args, **kwargs):
 	if created and instance.email:
