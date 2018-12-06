@@ -3,23 +3,35 @@
 
 {% block content %}
 
-{% if billing_profile %}
-<div class="row text-center">
-	<div class="col-12 col-md-6">
-		<p class="lead">Login</p>
-		{% include 'accounts/snippets/form.html' with form=login_form next_url=request.build_absolute_uri %}
+{{ object.order_id }} -- 
+
+{% if not billing_profile %}
+	<div class="row text-center">
+		<div class="col-12 col-md-6">
+			<p class="lead">Login</p>
+			{% include 'accounts/snippets/form.html' with form=login_form next_url=request.build_absolute_uri %}
+		</div>
+		<div class="col-12 col-md-6">
+			Continue as Guest
+
+			{% url "guest_register" as guest_register_url %}
+			
+			{% include 'accounts/snippets/form.html' with form=guest_form next_url=request.build_absolute_uri action_url=guest_register_url %}
+		</div>
 	</div>
-	<div class="col-12 col-md-6">
-		Continue as Guest
-	</div>
-</div>
 
 {% else %}
-<h1>Checkout</h1>
 
-	<p>Cart Total:  $ {{ object.cart.total }}</p>
-	<p>Shipping Total:  $ {{ object.shipping_total }}</p>
-	<p>Order Total: $ {{ object.total }}</p>
+		{% if not object.shippng_address and not object.billing_address %}
+
+		{% else %}
+
+				<h1>Checkout</h1>
+
+				<p>Cart Total:  $ {{ object.cart.total }}</p>
+				<p>Shipping Total:  $ {{ object.shipping_total }}</p>
+				<p>Order Total: $ {{ object.total }}</p>
+		{% endif %}
 {% endif %}
 
  

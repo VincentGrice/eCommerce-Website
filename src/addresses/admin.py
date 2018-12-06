@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from models import GuestEmail
+from models import Address
 # Register your models here.
-
-admin.site.register(GuestEmail)
+admin.site.register(Address)
