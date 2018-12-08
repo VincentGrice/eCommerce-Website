@@ -70,7 +70,7 @@ class Order(models.Model):
 			return True
 		return False
 
-	def mark_done(self):
+	def mark_paid(self):
 		if self.check_done():
 			self.status = "paid"
 			self.save()
