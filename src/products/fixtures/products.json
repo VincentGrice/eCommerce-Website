@@ -1,0 +1,62 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "title": "FAMU rattlers quilt",
+        "slug": "quilt-3",
+        "description": "This is an awesome quilt for practice",
+        "price": "39.99",
+        "image": "products/1828941786/1828941786.jpg",
+        "image_two": "products/1116785803/1116785803.JPG",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-11-25T23:59:30.830Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "title": "Cancer Awareness Quilt",
+        "slug": "quilt-2",
+        "description": "Remembrance for breast cancer awarness.",
+        "price": "39.99",
+        "image": "products/1792632074/1792632074.jpg",
+        "image_two": "products/104411997/104411997.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-11-25T23:59:30.830Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "title": "Dallas Cowboys Quilt",
+        "slug": "quilt-1",
+        "description": "This will be a nice thing to say for the cowboys !",
+        "price": "99.99",
+        "image": "products/3655189289/3655189289.png",
+        "image_two": "products/1484661691/1484661691.JPG",
+        "featured": true,
+        "active": true,
+        "timestamp": "2018-11-25T23:59:30.830Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+        "title": "Instagram quilt",
+        "slug": "quilt",
+        "description": "Display practice description for quilts",
+        "price": "39.99",
+        "image": "products/1512953265/1512953265.jpg",
+        "image_two": "products/742766315/742766315.JPG",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-11-25T23:59:30.830Z"
+    }
+}
+]
