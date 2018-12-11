@@ -33,8 +33,8 @@
           var contactFormData = contactForm.serialize()
           var thisForm = $(this)
           $.ajax({
-            method: contactFormData,
             url: contactFormEndpoint,
+            method: contactFormMethod,
             data: contactFormData,
             success: function(data){
               contactForm[0].reset()
@@ -45,7 +45,7 @@
               })
             },
             error: function(error){
-              console.log(error)
+              console.log(error.statusText)
               $.alert({
                 title: "Oops",
                 content: "An error occurred",
