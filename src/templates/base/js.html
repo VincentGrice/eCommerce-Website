@@ -1,4 +1,4 @@
- 
+ {% load static %}
 <!--Jquery for bootstrap -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- Popper Js for bootstrap -->
@@ -8,3 +8,8 @@
 
 <!-- Jquery Confirm -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+
+<!-- eCommerce Custom JS -->
+<script src='{% static "js/ecommerce.js" %}'></script>
+<!-- Django Secure AJAX -->
+<script src='{% static "js/csrf.ajax.js" %}'></script>
