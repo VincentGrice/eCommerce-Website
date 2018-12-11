@@ -24,6 +24,72 @@
 
     <script>
       $(document).ready(function(){
+        // Contact Form Handler
+        var contactForm = $(".contact-form")
+        var contactFormMethod = contactForm.attr("method")
+        var contactFormEndpoint = contactForm.attr("action")
+        contactForm.submit(function(event){
+          event.preventDefault()
+          var contactFormData = contactForm.serialize()
+          var thisForm = $(this)
+          $.ajax({
+            method: contactFormData,
+            url: contactFormEndpoint,
+            data: contactFormData,
+            success: function(data){
+              contactForm[0].reset()
+              $.alert({
+                title: "Success",
+                content: data.message,
+                theme: "modern",
+              })
+            },
+            error: function(error){
+              console.log(error)
+              $.alert({
+                title: "Oops",
+                content: "An error occurred",
+                theme: "modern",
+              })
+            }
+          })
+        })
+
+
+        // Auto Search
+        var searchForm = $(".search-form")
+        var searchInput = searchForm.find("[name='q']")
+        var typingTimer;
+        var typingInterval = 500 // 1.5 seconds
+        var searchBtn = searchForm.find("[type='submit']")
+        searchInput.keyup(function(event){
+          // key released
+          clearTimeout(typingTimer)
+
+          typingTimer = setTimeout(performSearch, typingInterval)
+        })
+
+        searchInput.keydown(function(event){
+          // key pressed down
+          clearTimeout(typingTimer)
+        })
+
+        function displaySearching(){
+          searchBtn.addClass("disabled")
+          searchBtn.html("<i class='fas  fa-spinner'></i>...Searching")
+        }
+
+        function performSearch(){
+          displaySearching()
+          var query = searchInput.val()
+          setTimeout(function(){
+          window.location.href = '/search/?q=' + query
+          }, 1000)
+          
+        }
+
+
+        //  Cart + Add Products
         var productForm = $('.form-product-ajax')
 
         productForm.submit(function(event){
@@ -57,8 +123,11 @@
               
             },
             error: function(errorData){
-              console.log("error")
-              console.log(errorData)
+              $.alert({
+                  title: "Oops",
+                  content: "An error occurred",
+                  theme: "modern",
+              })
             }
           })
 
@@ -102,8 +171,11 @@
             
             },
             error: function(errorData){
-              console.log("error")
-              console.log(errorData)
+              $.alert({
+                  title: "Oops",
+                  content: "An error occurred",
+                  theme: "modern",
+              })
             }
           })
 
