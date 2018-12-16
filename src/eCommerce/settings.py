@@ -55,6 +55,9 @@ AUTH_USER_MODEL = 'accounts.User' #changes the built-in user model to ours
 FORCE_SESSION_TO_ONE = False
 FORCE_INACTIVE_USER_ENDSESSION = False
 
+STRIPE_SECRET_KEY = "sk_test_aGSwbO1XiuQDV68Wp7Qq74X0"
+STRIPE_PUB_KEY = "pk_test_OUtgrG1yqxLQmA9ooYYRI49n"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

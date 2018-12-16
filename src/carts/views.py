@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -16,6 +17,10 @@ from products.models import Product
 from models import Cart 
 
 # Create your views here.
+import stripe
+STRIPE_SECRET_KEY = getattr(settings, "STRIPE_SECRET_KEY", "sk_test_aGSwbO1XiuQDV68Wp7Qq74X0")
+STRIPE_PUB_KEY = getattr(settings, "STRIPE_PUB_KEY", "pk_test_OUtgrG1yqxLQmA9ooYYRI49n")
+stripe.api_key = STRIPE_SECRET_KEY
 # API endpoint for changing cart view after removing a product
 def cart_detail_api_view(request):
 	cart_obj, new_obj = Cart.objects.new_or_get(request)
@@ -78,6 +83,7 @@ def checkout_home(request):
 
 	billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
 	address_qs = None
+	has_card = False
 	if billing_profile is not None:
 		if request.user.is_authenticated():
 			address_qs = Address.objects.filter(billing_profile=billing_profile)
@@ -90,15 +96,22 @@ def checkout_home(request):
 			del request.session["billing_address_id"]
 		if billing_address_id or shipping_address_id:
 			order_obj.save()
-
+		has_card = billing_profile.has_card
 	if request.method == "POST":
 		"check that order is done"
-		is_done = order_obj.check_done()
-		if is_done:
-			order_obj.mark_paid()
-			request.session['cart_items'] = 0
-			del request.session['cart_id']
-			return redirect("cart:success")
+		is_prepared = order_obj.check_done()
+		if is_prepared:
+			did_charge, crg_msg = billing_profile.charge(order_obj)
+			if did_charge:
+				order_obj.mark_paid()
+				request.session['cart_items'] = 0
+				del request.session['cart_id']
+				if not billing_profile.user:
+					billing_profile.set_cards_inactive()
+				return redirect("cart:success")
+			else:
+				print(crg_msg)
+				return redirect("cart:checkout")
 
 	context = {
 		"object": order_obj,
@@ -107,6 +120,8 @@ def checkout_home(request):
 		"guest_form": guest_form,
 		"address_form": address_form,
 		"address_qs": address_qs,
+		"has_card": has_card,
+		"publish_key": STRIPE_PUB_KEY,
 	}
 	return render(request, "carts/checkout.html", context)
 
