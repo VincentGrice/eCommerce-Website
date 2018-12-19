@@ -1,2 +1,0 @@
-<!-- This command copies dumodate for specific app/component and saves it as a json file to repopulate database -->
-python manage.py dumpdata products --format json --indent 4 > products/fixtures/products.json

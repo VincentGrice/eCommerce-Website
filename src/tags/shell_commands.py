@@ -1,56 +1,76 @@
-# ^Cvagrant@vagrant:/vagrant/eCommerce/src$ python managpy shell
-# Python 2.7.12 (default, Dec  4 2017, 14:50:18)
-# [GCC 5.4.0 20160609] on linux2
-# Type "help", "copyright", "credits" or "license" for more information.
-# (InteractiveConsole)
-# >>> from tags.models import Tag
-# >>> Tag.objects.all()
-# <QuerySet [<Tag: orange>, <Tag: blue>, <Tag: pink>, <Tag: insta>]>
-# >>> Tag.objects.last()
-# <Tag: insta>
-# >>> black = Tag.objects.last()
-# >>> black.title
-# u'insta'
-# >>> black.slug
-# u'ig'
-# >>> black.active
-# True
-# >>> black.products
-# <django.db.models.fields.related_descriptors.ManyRelatedManager object at 0x7ff790bbec10>
-# >>> black.products.all()
-# <ProductQuerySet [<Product: Instagram quilt>]>
-# >>> insta = Tag.objects.last()
-# >>> insta.title
-# u'insta'
-# >>> insta.products.all().first()
-# <Product: Instagram quilt>
-# >>> exit()
-# vagrant@vagrant:/vagrant/eCommerce/src$ python manage.py shell
-# Python 2.7.12 (default, Dec  4 2017, 14:50:18)
-# [GCC 5.4.0 20160609] on linux2
-# Type "help", "copyright", "credits" or "license" for more information.
-# (InteractiveConsole)
-# >>> from products.models import product
-# Traceback (most recent call last):
-#   File "<console>", line 1, in <module>
-# ImportError: cannot import name product
-# >>> from products.models import Product
-# >>> qs = Product.objects.all()
-# >>> qs
-# <ProductQuerySet [<Product: FAMU rattlers quilt>, <Product: Cancer Awareness Quilt>, <Product: Dallas Cowboys Quilt>, <Product: Instagram quilt>]>
-# >>> famu = qs.first()
-# >>> famu
-# <Product: FAMU rattlers quilt>
-# >>> famu.title
-# u'FAMU rattlers quilt'
-# >>> famu.description
-# u'This is an awesome quilt for practice'
-# >>> famu.tags
-# Traceback (most recent call last):
-#   File "<console>", line 1, in <module>
-# AttributeError: 'Product' object has no attribute 'tags'
-# >>> famu.tag_set
-# <django.db.models.fields.related_descriptors.ManyRelatedManager object at 0x7f38df553510>
-# >>> famu.tag_set.all()
-# <QuerySet [<Tag: orange>]>
-# >>>
+'''
+# Shell session 1
+# python manage.py shell
+'''
+
+from tags.models import Tag
+
+qs = Tag.objects.all()
+print(qs)
+black = Tag.objects.last()
+black.title
+black.slug
+
+black.products
+"""
+Reutrns: 
+<django.db.models.fields.related_descriptors.create_forward_many_to_many_manager.<locals>.ManyRelatedManager object at 0x1112f3fd0>
+"""
+
+black.products.all()
+"""
+This is an actual queryset of PRODUCTS
+Much like Products.objects.all(), but in this case it's ALL of the products that are 
+related to the "Black" tag
+"""
+black.products.all().first()
+"""
+returns the first instance, if any
+"""
+
+exit()
+
+'''
+# Shell session 2
+# python manage.ppy shell
+'''
+from products.models import Product
+
+
+
+qs = Product.objects.all()
+print(qs)
+tshirt = qs.first()
+tshirt.title
+tshirt.description
+
+tshirt.tag
+'''
+Raises an error because the Product model doens't have a field "tag"
+'''
+
+tshirt.tags
+'''
+Raises an error because the Product model doens't have a field "tags"
+'''
+
+tshirt.tag_set
+'''
+This works because the Tag model has the "products" field with the ManyToMany to Product
+<django.db.models.fields.related_descriptors.create_forward_many_to_many_manager.<locals>.ManyRelatedManager object at 0x10c0e75f8>
+'''
+
+tshirt.tag_set.all()
+'''
+Returns an actual Queryset of the Tag model related to this product
+<QuerySet [<Tag: T shirt>, <Tag: TShirt>, <Tag: T-shirt>, <Tag: Red>, <Tag: Black>]>
+'''
+tshirt.tag_set.filter(title__icontains='black')
+
+
+
+
+
+
+
+
